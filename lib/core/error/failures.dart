@@ -14,3 +14,9 @@ class CacheFailure extends Failure {
 
   CacheFailure({required this.message}) : super([message]);
 }
+
+class ServerFailure extends Failure {
+  final String message;
+
+  ServerFailure({required this.message}) : super([message]);
+}

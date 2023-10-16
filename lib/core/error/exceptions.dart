@@ -3,8 +3,11 @@ class CacheException implements Exception {
 
   CacheException({required this.message});
 }
+
 class ServerException implements Exception {
   final String message;
 
-  ServerException({required this.message});
+  ServerException({
+    required this.message,
+  });
 }
