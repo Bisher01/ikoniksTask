@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:task/features/devices/presentation/pages/device_details_screen.dart';
+
 import '../../../../core/const/style.dart';
 import '../../../../core/widgets/exception_indicator.dart';
 import '../../../../core/widgets/loading_widget.dart';
@@ -69,9 +71,16 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                 ),
               ),
               itemBuilder: (context, device, index) {
-                return DeviceCard(
-                  name: device.title,
-                  image: device.thumbnail,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                        DeviceDetailsScreen.routeName,
+                        arguments: {'device': device});
+                  },
+                  child: DeviceCard(
+                    name: device.title,
+                    image: device.thumbnail,
+                  ),
                 );
               },
               firstPageErrorIndicatorBuilder: (context) {

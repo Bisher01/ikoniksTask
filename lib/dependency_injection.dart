@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:task/features/devices/domain/usecases/search_devices.dart';
+
 import 'core/data_sources/http_client.dart';
 import 'features/devices/data/data_sources/device_data_source.dart';
 import 'features/devices/data/repositories/device_repository_impl.dart';
@@ -21,6 +23,8 @@ Future<void> inject() async {
       () => DeviceRepositoryImpl(deviceDataSource: di()));
   di.registerLazySingleton<FetchDevices>(
       () => FetchDevices(deviceRepository: di()));
+  di.registerLazySingleton<SearchDevices>(
+      () => SearchDevices(deviceRepository: di()));
   di.registerFactory<DeviceBloc>(() => DeviceBloc(fetchDevicesUseCase: di()));
   //==========Splash==========//
   di.registerFactory<SplashBloc>(() => SplashBloc());

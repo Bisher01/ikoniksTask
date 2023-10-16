@@ -32,4 +32,24 @@ class DeviceRepositoryImpl extends DeviceRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, DeviceListEntity>> searchDevices(
+      {required String searchText}) async {
+    try {
+      DeviceListEntity deviceListEntity =
+          await deviceDataSource.searchDevices(searchText: searchText);
+      return Right(deviceListEntity);
+    } on ServerException catch (e) {
+      return Left(
+        ServerFailure(message: e.message),
+      );
+    } on Exception catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.toString(),
+        ),
+      );
+    }
+  }
 }

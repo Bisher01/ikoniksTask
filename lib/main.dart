@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task/features/devices/presentation/pages/device_details_screen.dart';
 import 'core/const/style.dart';
 import 'dependency_injection.dart' as dii;
 import 'dependency_injection.dart';
@@ -37,6 +38,17 @@ class MyApp extends StatelessWidget {
             return BlocProvider<DeviceBloc>(
               create: (context) => di<DeviceBloc>(),
               child: const DeviceListScreen(),
+            );
+          });
+        }
+        if (settings.name == DeviceDetailsScreen.routeName) {
+          final args = settings.arguments as Map<String, dynamic>;
+          return PageRouteBuilder(pageBuilder: (context, first, second) {
+            return BlocProvider<DeviceBloc>(
+              create: (context) => di<DeviceBloc>(),
+              child: DeviceDetailsScreen(
+                device: args['device'],
+              ),
             );
           });
         }

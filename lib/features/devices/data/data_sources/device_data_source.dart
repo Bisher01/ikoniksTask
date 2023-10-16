@@ -6,19 +6,21 @@ import '../../../../core/data_sources/http_client.dart';
 import '../../../../core/error/exceptions.dart';
 import '../models/device_model.dart';
 
-abstract class DeviceDataSource{
+abstract class DeviceDataSource {
   Future<DeviceListModel> fetchDeviceList({required int offset});
+
+  Future<DeviceListModel> searchDevices({required String searchText});
 }
 
-class DeviceDataSourceImpl extends DeviceDataSource{
-
+class DeviceDataSourceImpl extends DeviceDataSource {
   final HttpService client;
   final UrlBuilder urlBuilder;
 
-  DeviceDataSourceImpl({required this.client}):urlBuilder=const UrlBuilder();
+  DeviceDataSourceImpl({required this.client})
+      : urlBuilder = const UrlBuilder();
 
   @override
-  Future<DeviceListModel> fetchDeviceList({required int offset})  async {
+  Future<DeviceListModel> fetchDeviceList({required int offset}) async {
     var url = Uri.parse(urlBuilder.buildGetDeviceListPageUrl(offset));
     final response = await client.get(url).timeout(const Duration(seconds: 10));
     var data = json.decode(response.body);
@@ -30,4 +32,16 @@ class DeviceDataSourceImpl extends DeviceDataSource{
     }
   }
 
+  @override
+  Future<DeviceListModel> searchDevices({required String searchText}) async {
+    var url = Uri.parse(urlBuilder.buildSearchDevicePageUrl(searchText));
+    final response = await client.get(url).timeout(const Duration(seconds: 10));
+    var data = json.decode(response.body);
+    if (response.statusCode >= 200 && response.statusCode <= 300) {
+      var deviceData = DeviceListModel.fromJson(data);
+      return deviceData;
+    } else {
+      throw ServerException(message: fetchDeviceErrorMessage);
+    }
+  }
 }

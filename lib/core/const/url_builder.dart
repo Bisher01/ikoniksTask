@@ -9,5 +9,7 @@ class UrlBuilder {
     return '$_baseUrl/products?limit=10&skip=$page';
   }
 
-
+  String buildSearchDevicePageUrl(String searchText) {
+    return '$_baseUrl/products/search?q=$searchText';
+  }
 }
