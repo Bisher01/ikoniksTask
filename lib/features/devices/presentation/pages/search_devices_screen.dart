@@ -47,38 +47,46 @@ class _SearchDevicesScreenState extends State<SearchDevicesScreen> {
             titleSpacing: 0,
             title: const Text('Search For Devices'),
           ),
-          body: ListView(
+          body: Column(
             children: [
               TextField(
                 controller: controller,
-                onChanged: (val) {
-                  BlocProvider.of<SearchBloc>(context)
-                      .add(SearchForDeviceEvent(searchText: val));
+                textInputAction: TextInputAction.search,
+                decoration: const InputDecoration(
+                  hintText: "Search",
+                  suffixIcon: Icon(Icons.search),
+                ),
+                onSubmitted: (val) {
+                  BlocProvider.of<SearchBloc>(context).add(
+                    SearchForDeviceEvent(searchText: val),
+                  );
                 },
               ),
-              ListView.separated(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 27),
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                            DeviceDetailsScreen.routeName,
-                            arguments: {
-                              'device': deviceListEntity?.results[index]
-                            });
-                      },
-                      child: DeviceCard(
-                         device: deviceListEntity!.results[index],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      height: 27,
-                    );
-                  },
-                  itemCount: deviceListEntity?.results.length ?? 0),
+              Expanded(
+                child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 27),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                              DeviceDetailsScreen.routeName,
+                              arguments: {
+                                'device': deviceListEntity?.results[index]
+                              });
+                        },
+                        child: DeviceCard(
+                          device: deviceListEntity!.results[index],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 27,
+                      );
+                    },
+                    itemCount: deviceListEntity?.results.length ?? 0),
+              ),
             ],
           ),
         );

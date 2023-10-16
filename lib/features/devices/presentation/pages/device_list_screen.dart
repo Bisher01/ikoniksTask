@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:task/features/devices/presentation/pages/device_details_screen.dart';
+import 'package:task/features/devices/presentation/pages/search_devices_screen.dart';
 
 import '../../../../core/const/style.dart';
 import '../../../../core/widgets/exception_indicator.dart';
@@ -50,8 +51,15 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          titleSpacing: 0,
           title: const Text('Devices'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(SearchDevicesScreen.routeName);
+                },
+                icon: const Icon(Icons.search))
+          ],
         ),
         body: RefreshIndicator(
           onRefresh: () {

@@ -32,28 +32,31 @@ class DeviceCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CachedNetworkImage(
-            imageUrl: device.thumbnail,
-            imageBuilder: (context, provider) => Container(
-              width: 138,
-              height: 138,
-              decoration: BoxDecoration(
-                image: DecorationImage(image: provider, fit: BoxFit.cover),
-              ),
-            ),
-            placeholder: (context, url) => Container(
-              width: 138,
-              height: 138,
-              decoration: ShapeDecoration(
-                color: AppStyle.lightGreyColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
+          Hero(
+            tag: device.thumbnail,
+            child: CachedNetworkImage(
+              imageUrl: device.thumbnail,
+              imageBuilder: (context, provider) => Container(
+                width: 138,
+                height: 138,
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: provider, fit: BoxFit.cover),
                 ),
               ),
-              child: const Icon(
-                Icons.photo_outlined,
-                size: 40,
-                color: AppStyle.blackColor,
+              placeholder: (context, url) => Container(
+                width: 138,
+                height: 138,
+                decoration: ShapeDecoration(
+                  color: AppStyle.lightGreyColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.photo_outlined,
+                  size: 40,
+                  color: AppStyle.blackColor,
+                ),
               ),
             ),
           ),
