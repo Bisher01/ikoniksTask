@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task/features/devices/presentation/blocs/search_bloc/search_bloc.dart';
 import 'package:task/features/devices/presentation/pages/device_details_screen.dart';
+import 'package:task/features/devices/presentation/pages/search_devices_screen.dart';
 import 'core/const/style.dart';
 import 'dependency_injection.dart' as dii;
 import 'dependency_injection.dart';
@@ -49,6 +51,14 @@ class MyApp extends StatelessWidget {
               child: DeviceDetailsScreen(
                 device: args['device'],
               ),
+            );
+          });
+        }
+        if (settings.name == SearchDevicesScreen.routeName) {
+          return PageRouteBuilder(pageBuilder: (context, first, second) {
+            return BlocProvider<SearchBloc>(
+              create: (context) => di<SearchBloc>(),
+              child: const SearchDevicesScreen(),
             );
           });
         }

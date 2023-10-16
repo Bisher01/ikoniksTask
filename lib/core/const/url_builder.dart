@@ -5,11 +5,9 @@ class UrlBuilder {
 
   final String _baseUrl;
 
-  String buildGetDeviceListPageUrl(int page) {
-    return '$_baseUrl/products?limit=10&skip=$page';
-  }
+  String buildGetDeviceListPageUrl(int page) =>
+      '$_baseUrl/products?limit=10&skip=$page';
 
-  String buildSearchDevicePageUrl(String searchText) {
-    return '$_baseUrl/products/search?q=$searchText';
-  }
+  String buildSearchDevicePageUrl(String searchText) =>
+      '$_baseUrl/products/search?q=$searchText';
 }

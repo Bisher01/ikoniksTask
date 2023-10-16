@@ -77,10 +77,7 @@ class _DeviceListScreenState extends State<DeviceListScreen> {
                         DeviceDetailsScreen.routeName,
                         arguments: {'device': device});
                   },
-                  child: DeviceCard(
-                    name: device.title,
-                    image: device.thumbnail,
-                  ),
+                  child: DeviceCard(device: device),
                 );
               },
               firstPageErrorIndicatorBuilder: (context) {

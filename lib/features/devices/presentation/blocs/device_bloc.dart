@@ -88,7 +88,7 @@ class DeviceBloc extends Bloc<DeviceListEvent, DeviceListState> {
       final oldItemList = state.itemList ?? [];
       final completeItemList =
       isRefresh || page == 0 ? newItemList : (oldItemList + newItemList);
-      final nextPage = newPage.skip == null ? null : page+20;
+      final nextPage = newPage.skip == null ? null : page+10;
       yield DeviceListState.success(
         nextPage: nextPage,
         itemList: completeItemList,
